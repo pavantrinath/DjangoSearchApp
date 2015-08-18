@@ -1,0 +1,59 @@
+body{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background:url("../images/bg.jpg");
+}
+
+form{
+  width: 100%;
+  margin-top: 10%;
+  text-align: center;
+}
+
+#spot {
+  font-size: 36px;
+  font-family: "Wellfleet";
+  color: #fff;
+  font-style: bold;
+}
+
+#searchbar{
+
+  width: 40%;
+
+  height: 25px;
+  margin-top: 10%;
+
+}
+
+#btn {
+   font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  color: #fff;
+  background-color: #51B37F;
+  border-color: #51B37F;
+}
+
+#header {
+  color:#fff;
+  width: 100%;
+  background: url('../images/header-bg.png');
+  height: 50px;
+
+}
+
+#logo a {
+      padding-left: 15px;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      float: left;
+      font-size: 28px;
+      margin-top: 10px;
+      color: #fff;
+      font-family:"Wellfleet";
+      font-weight: bold;
+    }

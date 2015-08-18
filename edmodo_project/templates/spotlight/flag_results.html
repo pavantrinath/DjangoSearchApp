@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<head>
+
+    <title>Flagged|Spotlight</title>
+    <link href='//fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href=  "../static/css/flag_main.css" >
+
+  </head>
+
+
+</head>
+<body>
+  <header id="header">
+  <div id="logo"><a href="/spotlight/"> Edmodo Spotlight</a></div>
+  </header>
+   <div id = "sec-bar">
+    <h2 id = "srch" style="text-align:center" >Flagged Results</h2>
+      </div>
+ <div id= "grid">
+   {% if flagged %}
+    <table>
+
+      <tbody>
+      <h2>Found {{ flagged|length }} product{{ flagged|pluralize }}</h2>
+      {% for flag in flagged %}
+      <tr id = rowspan='2'>
+        <td id ="title_image" width="150px"  height='180px'><img width="150px" src= "{{ flag.product.source.img_path }}"></td>
+
+          <td id = "info">  <h1>  {{ product.source.title }} </h1>
+
+            <h4>Created by:</h4>
+            <img height = "48px" width = "48px" id = "seller_image" src = "{{ flag.product.source.seller_thumb_url }}">
+            <h4>{{ flag.product.source.owner.first_name }} {{ flag.product.source.owner.last_name }}</h4>
+             <h4> Flagged :  {{ flag.Inappropiate }}  {{ flag.Not_Helpful }}  {{ flag.Wrong_Tags}}  {{ flag.Spam }} </h4>
+
+
+
+          </td>
+          </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+{% else %}
+    <p>No title matched your search criteria.</p>
+{% endif %}
+</div>
+</body>
+</html>

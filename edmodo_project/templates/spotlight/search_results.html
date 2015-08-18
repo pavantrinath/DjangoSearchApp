@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+
+    <title>Search|Spotlight</title>
+    <link href='//fonts.googleapis.com/css?family=Wellfleet' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static "css/search_main.css" %}">
+
+  </head>
+  <body>
+
+
+  <header id="header">
+  <div id="logo"><a href="/spotlight/"> Edmodo Spotlight</a></div>
+  <nav id="nav">
+  <ul>
+    <li><a href="/flagged/" class="active">Flagged Products</a></li>
+    </ul>
+    </nav>
+  </header>
+
+
+   <div id = "sec-bar">
+    <h2 id = "srch" style="text-align:center" id = "query" >Search Results for : <strong>{{ query }}</strong></h2>
+      </div>
+
+    <div id= "grid">
+   {% if products %}
+    <table>
+
+      <tbody>
+      <h2>Found {{ products|length }} product{{ products|pluralize }}</h2>
+      {% for product in products %}
+      <tr id = rowspan='2'>
+          <td id ="title_image" width="150px"  height='180px'><img width="150px" src= "{{ product.source.img_path }}"></td>
+          <td id = "info">  <h1>  {{ product.source.title }} </h1>
+
+                            <h4>Created by:</h4>
+                            <img height = "48px" width = "48px" id = "seller_image" src = "{{ product.source.seller_thumb_url }}">
+                            <h4>{{ product.source.owner.first_name }} {{ product.source.owner.last_name }}</h4>
+                            <!-- <h4></h4> -->
+                            <button id = "flag" value ="{{ product.source.id }}" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Flag</button>
+                            <!-- <input type="submit" value="Flag"> -->
+          </td>
+      </tr>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Flag this Product</h4>
+      </div>
+      <div class="modal-body">
+      <input type="checkbox" name="flagger" id = "Inappropriate" value="Inappropriate"> Inappropriate<br>
+      <input type="checkbox" name="flagger" id = "Not_Helpful"value="Not_Helpful"> Not_Helpful<br>
+      <input type="checkbox" name="flagger" id="Wrong_Tags"value="Wrong_Tags"> Wrong_Tags<br>
+      <input type="checkbox" name="flagger" id= "Spam"value="Spam">Spam<br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" id ="save">Save </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      {% endfor %}
+      </tbody>
+    </table>
+{% else %}
+    <p>No title matched your search criteria.</p>
+{% endif %}
+</div>
+
+
+<script>
+  $(document).ready(function(){
+    $("#save").click(function(){
+      var checkbox_value = "";
+      alert($("#flag").attr("value"));
+      $(":checkbox").each(function () {
+        var ischecked = $(this).is(":checked");
+        if (ischecked) {
+            checkbox_value += $(this).val() + "|";
+        }
+    });
+       $.ajax({
+          url: "/flag",
+          type: "GET",
+          data: {test1: checkbox_value,id:$("#flag").attr("value") },
+
+          context: document.body
+});
+
+       $("#myModal").modal('toggle');
+    });
+});
+
+
+
+</script>
+</body>
+</html>
